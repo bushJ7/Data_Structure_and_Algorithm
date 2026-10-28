@@ -20,7 +20,12 @@ void insert_end(Node *&head,Node *&tail,int size){
         }
     }
 }
-
+void display(Node *head,Node *tail){
+    do{
+        cout<<head->data<<" ";
+        head = head->next;
+    }while(head->next!=tail->next);
+}
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
