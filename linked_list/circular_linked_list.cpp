@@ -1,26 +1,25 @@
 #include <iostream>
 using namespace std;
 
-// this circular linked list will not use the tail pointer 
+// this circular linked list will only use the tail pointer because it is the industry standard and improve the perfromance because the tail pointer already point to the head node
 struct Node{
     int data;
     Node *next;
 };
-void insert_end(Node *&head,Node *&tail,int size){
-    for(int i=0;i<size;i++){
+void insert_end(Node *&tail,int size){
+     for(int i=0;i<size;i++){
         Node *newNode = new Node;
-        cout<<"enter the value : ";cin>>newNode->data;
-        newNode->next = head;
-        if(head == nullptr){
-            head = newNode;
+        cout<<"enter the number : ";cin>>newNode->data;
+        if(tail==nullptr){
             tail = newNode;
-
+            tail->next = newNode;
         }
         else{
+            newNode->next = tail->next;
             tail->next = newNode;
             tail = newNode;
         }
-    }
+     }
 }
 
 void free_list(Node *head){
@@ -32,19 +31,18 @@ void free_list(Node *head){
     }while(current!=head);
 }
 
-void display(Node *head){
-    if(head==nullptr){
+void display(Node *tail){
+    if(tail==nullptr){
         cout<<"the list is empty!"<<endl;
         return;
     }
-    Node *current = head;
+    Node *current = tail->next;
     do{
         cout<<current->data<<"->";
         current = current->next;
-    }while(current!=head);
+    }while(current!=tail->next);
 }
 int main(){
-    Node *head = nullptr;
     Node *tail = nullptr;
     int options;
     do{
@@ -54,17 +52,17 @@ int main(){
         cout<<"==============================================================="<<endl;
         switch(options){
             case 1:{
-                display(head);
+                display(tail);
                 break;
             }
             case 2:{
                 int size;
                 cout<<"enter the amount of the student to add : ";cin>>size;
-                insert_end(head,tail,size);
+                insert_end(tail,size);
                 break;
             }
             case 6:{
-                free_list(head);
+                free_list(tail->next);
                 cout<<"exited!"<<endl;
                 break;
             }
