@@ -36,16 +36,21 @@ void free_list(Node *&tail){
     }
     tail = nullptr;
 }
-void delete_end(Node *&tail){
+
+bool delete_single_Node(Node *&tail){
     if(tail==nullptr){
         cout<<"the list is empty"<<endl;
-        return;
+        return true;
     }
     if (tail->next==tail){
         delete tail;
         tail = nullptr;
-        return;
+        return true;
     }
+    return false;
+}
+void delete_end(Node *&tail){
+    if(!delete_single_Node(tail)){
     Node *head = tail->next;
     Node *newLast = head;
     while(newLast->next != tail){
@@ -54,8 +59,15 @@ void delete_end(Node *&tail){
     newLast->next = head;
     delete tail;
     tail = newLast;
+    }
 }
-
+void delete_front(Node *&tail){
+    if(!delete_single_Node(tail)){
+    Node *newHead = tail->next->next;
+    delete tail->next;
+    tail->next = newHead;
+    }
+}
 void display(Node *tail){
     if(tail==nullptr){
         cout<<"the list is empty!"<<endl;
@@ -72,7 +84,7 @@ int main(){
     int options;
     do{
         cout<<"===============student management menu dashboard==============="<<endl;
-        cout<<"1.display_student\n2.insert end\n3.delete_end\n4.insert_front\n5.reverse the list\n6.exit the program\n";
+        cout<<"1.display_student\n2.insert end\n3.delete_end\n4.insert_front\n5.delete front\n6.exit the program\n";
         cout<<"enter the options : ";cin>>options;
         cout<<"==============================================================="<<endl;
         switch(options){
@@ -88,6 +100,14 @@ int main(){
             }
             case 3:{
                 delete_end(tail);
+                break;
+            }
+            case 4:{
+                
+                break;
+            }
+            case 5:{
+                delete_front(tail);
                 break;
             }
             case 6:{
