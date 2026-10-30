@@ -22,7 +22,7 @@ void insert_end(Node *&tail,int size){
      }
 }
 
-void free_list(Node *tail){
+void free_list(Node *&tail){
     if(tail==nullptr){
         cout<<"the list is empty! there is no node to be freed "<<endl;
         return;
@@ -34,6 +34,7 @@ void free_list(Node *tail){
         head = head->next;
         delete temp;
     }
+    tail = nullptr;
 }
 
 void display(Node *tail){
