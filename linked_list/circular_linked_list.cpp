@@ -1,5 +1,7 @@
 #include <iostream>
 using namespace std;
+
+// this circular linked list will not use the tail pointer 
 struct Node{
     int data;
     Node *next;
