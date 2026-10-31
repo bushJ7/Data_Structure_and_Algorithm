@@ -104,12 +104,21 @@ bool delete_by_value(Node *&head,Node *&tail,int target){
         cout<<"the list is empty!"<<endl;
         return false;
     }
-    if(head->data==target && head->prev == nullptr){
-        Node *temp = head;
-        head = head->next;
-        delete temp;
-        return true;
+    if(head->data==target){
+        if(head->next==nullptr){
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            return true;
         }
+        else{
+            Node *temp = head;
+            head = head->next;
+            head->prev = nullptr;
+            delete temp;
+            return true;
+        }
+    }
     Node *current = head->next;
     while(current!=nullptr){
         if(current->data==target){
