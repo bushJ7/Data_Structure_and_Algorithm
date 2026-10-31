@@ -70,19 +70,20 @@ void display_list(Node *head,Node *tail){
     cout<<"2.display backward"<<endl;
     cout<<"enter the option : ";cin>>options;
     if(options==1){
-        cout<<"<- ";
+        cout<<"Head     NULL <-> ";
         while(head!=nullptr){
-        cout<<head->data<<" -> <- ";
+        cout<<"["<<head->data<<"] <-> ";
         head = head->next;
         }
+        cout<<"NULL     Tail"<<endl;
     }
     else{
-
+        cout<<"Tail     NULL <-> ";
         while(tail!=nullptr){
-            cout<<"<- ";
-            cout<<tail->data<<" -> <- ";
+            cout<<"["<<tail->data<<"] <-> ";
             tail = tail->prev;
         }
+        cout<<"NULL     Head"<<endl;
     }
     
 }
