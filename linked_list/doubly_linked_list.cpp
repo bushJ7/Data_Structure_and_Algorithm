@@ -23,6 +23,16 @@ void insert_end(Node *&head , Node *&tail,int size){
         }
     }
 }
+void display_list(Node *head){
+    if(head==nullptr){
+        cout<<"the list is empty!"<<endl;
+        return ;
+    }
+    while(head!=nullptr){
+        cout<<head->data<<" -> <- ";
+        head = head->next;
+    }
+}
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
@@ -33,7 +43,14 @@ int main(){
         cout<<"enter the options : ";cin>>options;
         cout<<"==============================================================="<<endl;
         switch(options){
-            
+            case 1:
+                display_list(head);
+                break;
+            case 2:{
+                int size;
+                cout<<"enter the size to add : ";cin>>size;
+                break;
+            }
         }
     }while(options!=6);
     return 0;
