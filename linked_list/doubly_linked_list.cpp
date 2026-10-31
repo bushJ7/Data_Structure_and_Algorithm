@@ -46,8 +46,20 @@ void insert_end(Node *&head , Node *&tail,int size){
         }
     }
 }
-
-
+//this function assume that the user enter the valid position which is between 1 to n (1,n]
+//which 1 is the position of the head and n is the position of the tail , n is inclusive , 1 is exclusive
+//also assume that the list is >=2
+void insert_at_position(Node *head,int pos){
+    Node *newNode = new Node;
+    cout<<"enter the value : ";cin>>newNode->data;
+    for(int i=1;i<pos;i++){
+        head  = head->next;
+    }
+    newNode->next = head;
+    newNode->prev = head->prev;
+    head->prev->next = newNode;
+    head->prev = newNode;
+}
 void display_list(Node *head,Node *tail){
     if(head==nullptr){
         cout<<"the list is empty!"<<endl;
@@ -92,7 +104,7 @@ int main(){
     int options;
     do{
         cout<<"===============student management menu dashboard==============="<<endl;
-        cout<<"1.display_value\n2.insert end\n3.delete_student\n4.insert_front\n5.reverse the list\n6.exit the program\n";
+        cout<<"1.display_value\n2.insert end\n3.insert_front\n4.insert_at_position\n5.reverse the list\n6.exit the program\n";
         cout<<"enter the options : ";cin>>options;
         cout<<"==============================================================="<<endl;
         switch(options){
@@ -105,10 +117,16 @@ int main(){
                 insert_end(head,tail,size);
                 break;
             }
-            case 4:{
+            case 3:{
                 int size;
                 cout<<"enter the amount to add : ";cin>>size;
                 insert_front(head,tail,size);
+                break;
+            }
+            case 4:{
+                int pos;
+                cout<<"enter the position to insert (>=2) : ";cin>>pos;
+                insert_at_position(head,pos);
                 break;
             }
             case 6:{
