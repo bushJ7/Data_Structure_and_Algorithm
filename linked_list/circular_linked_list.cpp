@@ -21,13 +21,19 @@ void insert_end(Node *&tail,int size){
         }
      }
 }
-void insert_front(Node *tail,int size){
+void insert_front(Node *&tail,int size){
     for(int i=0;i<size;i++){
         Node *newNode = new Node;
         cout<<"enter the value  ";cin>>newNode->data;
-        Node *temp = tail->next;
-        tail->next = newNode;
-        newNode->next = temp;
+        if(tail==nullptr){
+            tail = newNode;
+            tail->next = newNode;
+        }
+        else{
+            Node *temp = tail->next;
+            tail->next = newNode;
+            newNode->next = temp;
+        }
     }
 }
 void free_list(Node *&tail){
@@ -111,7 +117,9 @@ int main(){
                 break;
             }
             case 4:{
-                
+                int size;
+                cout<<"enter the size : ";cin>>size;
+                insert_front(tail,size);
                 break;
             }
             case 5:{
