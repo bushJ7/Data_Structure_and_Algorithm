@@ -6,10 +6,10 @@ struct Node{
     Node *prev;
 };
 
-bool initial_the_first_node(Node *&head,Node*&tail){
+bool initial_the_first_node(Node *&head,Node*&tail,int value){
     if(head==nullptr){
         Node *newNode = new Node;
-        cout<<"enter the value : ";cin>>newNode->data;
+        newNode->data = value;
         newNode->next = nullptr;
         newNode->prev = nullptr;
         head = newNode;
@@ -19,31 +19,33 @@ bool initial_the_first_node(Node *&head,Node*&tail){
     return false;
 }
 void insert_front(Node *&head,Node *&tail,int size){
-    if(initial_the_first_node(head,tail)){
-        size--;
-    }
     for(int i=0;i<size;i++){
-        Node *newNode = new Node;
-        cout<<"enter the value : ";cin>>newNode->data;
-        newNode->next = head;
-        newNode->prev = nullptr;
-        head = newNode;
+        int value;
+        cout<<"enter the value : ";cin>>value;
+        if(!initial_the_first_node(head,tail,value)){
+            Node *newNode = new Node;
+            newNode->data = value;
+            newNode->next = head;
+            newNode->prev = nullptr;
+            head->prev = newNode;
+            head = newNode;
+        }
     }
 }
 void insert_end(Node *&head , Node *&tail,int size){
-    if(initial_the_first_node(head,tail)){
-        size--;
-    }
     for(int i=0;i<size;i++){
-        Node *newNode = new Node;
-        cout<<"enter the value : ";cin>>newNode->data;
-        newNode->prev = tail;
-        newNode->next = nullptr;
-        tail->next = newNode;
-        tail = newNode;
+        int value;
+        cout<<"enter the value : ";cin>>value;
+        if(!initial_the_first_node(head,tail,value)){
+            Node *newNode = new Node;
+            newNode->data = value;
+            newNode->prev = tail;
+            newNode->next = nullptr;
+            tail->next = newNode;
+            tail = newNode;
         }
+    }
 }
-
 
 
 void display_list(Node *head,Node *tail){
@@ -101,6 +103,12 @@ int main(){
                 int size;
                 cout<<"enter the size to add : ";cin>>size;
                 insert_end(head,tail,size);
+                break;
+            }
+            case 4:{
+                int size;
+                cout<<"enter the amount to add : ";cin>>size;
+                insert_front(head,tail,size);
                 break;
             }
             case 6:{
