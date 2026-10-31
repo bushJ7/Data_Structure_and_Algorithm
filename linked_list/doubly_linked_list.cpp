@@ -6,6 +6,24 @@ struct Node{
     Node *prev;
 };
 
+bool initial_the_first_node(Node *&head,Node*&tail){
+    if(head==nullptr){
+        Node *newNode = new Node;
+        newNode->next = nullptr;
+        newNode->prev = nullptr;
+        head = newNode;
+        tail = newNode;
+        return true;
+    }
+    return false;
+}
+void insert_front(Node *&head,Node *&tail,int size){
+    for(int i=0;i<size;i++){
+        Node *newNode = new Node;
+        cout<<"enter the value : ";cin>>newNode->data;
+        
+    }
+}
 void insert_end(Node *&head , Node *&tail,int size){
     for(int i=0;i<size;i++){
         Node *newNode = new Node;
@@ -35,13 +53,16 @@ void display_list(Node *head,Node *tail){
     cout<<"2.display backward"<<endl;
     cout<<"enter the option : ";cin>>options;
     if(options==1){
+        cout<<"<- ";
         while(head!=nullptr){
         cout<<head->data<<" -> <- ";
         head = head->next;
         }
     }
     else{
+
         while(tail!=nullptr){
+            cout<<"<- ";
             cout<<tail->data<<" -> <- ";
             tail = tail->prev;
         }
