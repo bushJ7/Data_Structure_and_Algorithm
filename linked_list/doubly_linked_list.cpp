@@ -9,6 +9,7 @@ struct Node{
 bool initial_the_first_node(Node *&head,Node*&tail){
     if(head==nullptr){
         Node *newNode = new Node;
+        cout<<"enter the value : ";cin>>newNode->data;
         newNode->next = nullptr;
         newNode->prev = nullptr;
         head = newNode;
@@ -18,29 +19,31 @@ bool initial_the_first_node(Node *&head,Node*&tail){
     return false;
 }
 void insert_front(Node *&head,Node *&tail,int size){
+    if(initial_the_first_node(head,tail)){
+        size--;
+    }
     for(int i=0;i<size;i++){
         Node *newNode = new Node;
         cout<<"enter the value : ";cin>>newNode->data;
-        
+        newNode->next = head;
+        newNode->prev = nullptr;
+        head = newNode;
     }
 }
 void insert_end(Node *&head , Node *&tail,int size){
+    if(initial_the_first_node(head,tail)){
+        size--;
+    }
     for(int i=0;i<size;i++){
         Node *newNode = new Node;
         cout<<"enter the value : ";cin>>newNode->data;
+        newNode->prev = tail;
         newNode->next = nullptr;
-        if(head==nullptr){
-            newNode->prev = nullptr;
-            head = newNode;
-            tail = newNode;
+        tail->next = newNode;
+        tail = newNode;
         }
-        else{
-            newNode->prev = tail;
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
 }
+
 
 
 void display_list(Node *head,Node *tail){
