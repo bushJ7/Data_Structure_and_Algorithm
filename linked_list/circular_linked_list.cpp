@@ -21,7 +21,15 @@ void insert_end(Node *&tail,int size){
         }
      }
 }
-
+void insert_front(Node *tail,int size){
+    for(int i=0;i<size;i++){
+        Node *newNode = new Node;
+        cout<<"enter the value  ";cin>>newNode->data;
+        Node *temp = tail->next;
+        tail->next = newNode;
+        newNode->next = temp;
+    }
+}
 void free_list(Node *&tail){
     if(tail==nullptr){
         cout<<"the list is empty! there is no node to be freed "<<endl;
