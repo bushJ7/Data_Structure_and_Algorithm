@@ -33,6 +33,19 @@ void display_list(Node *head){
         head = head->next;
     }
 }
+
+void free_list(Node *&head , Node *&tail){
+    if(head==nullptr){
+        return;
+    }
+    while(head!=nullptr){
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    tail = nullptr;
+    head = nullptr;
+}
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
