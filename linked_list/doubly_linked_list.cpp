@@ -23,15 +23,30 @@ void insert_end(Node *&head , Node *&tail,int size){
         }
     }
 }
-void display_list(Node *head){
+
+
+void display_list(Node *head,Node *tail){
     if(head==nullptr){
         cout<<"the list is empty!"<<endl;
         return ;
     }
-    while(head!=nullptr){
+    int options;
+    cout<<"1.display forward"<<endl;
+    cout<<"2.display backward"<<endl;
+    cout<<"enter the option : ";cin>>options;
+    if(options==1){
+        while(head!=nullptr){
         cout<<head->data<<" -> <- ";
         head = head->next;
+        }
     }
+    else{
+        while(tail!=nullptr){
+            cout<<tail->data<<" -> <- ";
+            tail = tail->prev;
+        }
+    }
+    
 }
 
 void free_list(Node *&head , Node *&tail){
@@ -44,7 +59,6 @@ void free_list(Node *&head , Node *&tail){
         delete temp;
     }
     tail = nullptr;
-    head = nullptr;
 }
 int main(){
     Node *head = nullptr;
@@ -57,11 +71,17 @@ int main(){
         cout<<"==============================================================="<<endl;
         switch(options){
             case 1:
-                display_list(head);
+                display_list(head,tail);
                 break;
             case 2:{
                 int size;
                 cout<<"enter the size to add : ";cin>>size;
+                insert_end(head,tail,size);
+                break;
+            }
+            case 6:{
+                free_list(head,tail);
+                cout<<"exited !"<<endl;
                 break;
             }
         }
