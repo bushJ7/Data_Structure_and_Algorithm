@@ -98,13 +98,45 @@ void free_list(Node *&head , Node *&tail){
     }
     tail = nullptr;
 }
+
+bool delete_by_value(Node *&head,Node *&tail,int target){
+    if(head==nullptr){
+        cout<<"the list is empty!"<<endl;
+        return false;
+    }
+    if(head->data==target && head->prev == nullptr){
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+        }
+    Node *current = head->next;
+    while(current!=nullptr){
+        if(current->data==target){
+            if(current->next!=nullptr){
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+            delete current;
+            return true;
+            }
+            else if(current->next==nullptr){
+                tail = tail->prev;
+                tail->next = nullptr;
+                delete current;
+                return true;
+            }
+        }
+        current = current->next;
+    }
+    return false;
+}
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
     int options;
     do{
         cout<<"===============student management menu dashboard==============="<<endl;
-        cout<<"1.display_value\n2.insert end\n3.insert_front\n4.insert_at_position\n5.reverse the list\n6.exit the program\n";
+        cout<<"1.display_value\n2.insert end\n3.insert_front\n4.insert_at_position\n5.delete by value\n6.exit the program\n";
         cout<<"enter the options : ";cin>>options;
         cout<<"==============================================================="<<endl;
         switch(options){
@@ -127,6 +159,17 @@ int main(){
                 int pos;
                 cout<<"enter the position to insert (>=2) : ";cin>>pos;
                 insert_at_position(head,pos);
+                break;
+            }
+            case 5:{
+                int target;
+                cout<<"enter the target value to delete : ";cin>>target;
+                if(!delete_by_value(head,tail,target)){
+                    cout<<"the list is empty or the value is doesn't exist"<<endl;
+                }
+                else{
+                    cout<<target<<" has been deleted!"<<endl;
+                }
                 break;
             }
             case 6:{
