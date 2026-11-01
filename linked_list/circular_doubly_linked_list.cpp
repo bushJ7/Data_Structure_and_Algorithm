@@ -176,7 +176,7 @@ int main(){
                 break;
             }
         }
-    }while(options!=6);
+    }while(options!=5);
     return 0;
 }
     
