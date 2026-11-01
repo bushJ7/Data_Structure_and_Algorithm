@@ -94,15 +94,57 @@ void free_list(Node *&head,Node *&tail){
     tail = nullptr;
 }
 
-void insert_front();
-void delete_by_value();
+void delete_by_value(Node *&head,Node*&tail,int target){
+    if(head==nullptr){
+        cout<<"the list is empty!"<<endl;
+        return;
+    }
+
+    if(head->data== target){
+        if(head->next==head){
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+        }
+        else{
+            Node *temp = head;
+            head = head->next;
+            delete temp;
+            tail->next = head;
+            head->prev = tail;
+        }
+        cout<<target<<" has been deleted"<<endl;
+        return;
+    }
+
+    Node *current = head->next;
+    do{
+        if(current->data==target){
+            if(current->next!=head){
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
+                delete current;
+            }
+            else{
+                tail = current->prev;
+                head->prev = tail;
+                tail->next = head;
+                delete current;
+            }
+            cout<<target<<" has been deleted!"<<endl;
+            return;
+        }
+        current = current->next;
+    }while(current!=head);
+    cout<<"the target "<<target<<" is not found"<<endl;
+}
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
     int options;
     do{
         cout<<"===============student management menu dashboard==============="<<endl;
-        cout<<"1.display_student\n2.insert end\n3.delete_student\n4.insert_front\n5.reverse the list\n6.exit the program\n";
+        cout<<"1.display_list\n2.insert end\n3.delete_value\n4.insert_front\n5.exit the program\n";
         cout<<"enter the options : ";cin>>options;
         cout<<"==============================================================="<<endl;
         switch(options){
@@ -116,23 +158,19 @@ int main(){
                 insert_end(head,tail,size);
                 break;
             }
-            // case 3:{
-            //     int target;
-            //     cout<<"enter the target value to delete : ";cin>>target;
-            //     delete_by_value(head,tail,target);
-            //     break;
-            // }
+            case 3:{
+                int target;
+                cout<<"enter the target value to delete : ";cin>>target;
+                delete_by_value(head,tail,target);
+                break;
+            }
             case 4:{
                 int amount;
                 cout<<"enter the amount to add : ";cin>>amount;
                 insert_front(head,tail,amount);
                 break;
             }
-            // case 5:{
-            //     reverse_linked(head,tail);
-            //     break;
-            // }
-            case 6:{
+            case 5:{
                 free_list(head,tail);
                 cout<<"exited!"<<endl;
                 break;
