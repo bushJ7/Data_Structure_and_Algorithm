@@ -5,18 +5,25 @@ struct Node{
     Node *prev;
     Node *next;
 };
+void initialize_first_list(Node *&head,Node *&tail,int value){
+    Node *newNode = new Node;
+    newNode->data = value;
+    newNode->next = newNode;
+    newNode->prev = newNode;
+    tail = newNode;
+    head = newNode;
+}
 
 void insert_end(Node *&head,Node *&tail,int size){
     for(int i=0;i<size;i++){
-        Node *newNode = new Node;
-        cout<<"enter the value : ";cin>>newNode->data;
+        int value;
+        cout<<"enter the value: ";cin>>value;
         if(head==nullptr){
-            head = newNode;
-            tail = newNode;
-            head->next = newNode;
-            head->prev = newNode;
+            initialize_first_list(head,tail,value);
         }
         else{
+            Node *newNode = new Node;
+            newNode->data = value;
             head->prev = newNode;
             newNode->prev = tail;
             newNode->next = tail->next;
@@ -43,7 +50,7 @@ void display(Node *head,Node *tail){
         }while(current!=head);
         cout<<"Head     Tail"<<endl;
     }
-    else{
+    else if(options==2){
         Node *current = tail;
         cout<<"Tail     NULL <-> ";
         do{
@@ -51,6 +58,9 @@ void display(Node *head,Node *tail){
             current = current->prev;
         }while(current!=tail);
         cout<<"NULL     Head"<<endl;
+    }
+    else{
+        cout<<"invalid input options!"<<endl;
     }
 }
 void free_list(Node *&head,Node *&tail){
@@ -65,6 +75,9 @@ void free_list(Node *&head,Node *&tail){
     }
     tail = nullptr;
 }
+
+void insert_front();
+void delete_by_value();
 int main(){
     Node *head = nullptr;
     Node *tail = nullptr;
