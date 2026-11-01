@@ -14,11 +14,10 @@ void insert_end(Node *&head,Node *&tail,int size){
             head = newNode;
             tail = newNode;
             head->next = newNode;
-            tail->next = newNode;
-            head->prev = newNode;
             head->prev = newNode;
         }
         else{
+            head->prev = newNode;
             newNode->prev = tail;
             newNode->next = tail->next;
             tail->next = newNode;
@@ -53,6 +52,18 @@ void display(Node *head,Node *tail){
         }while(current!=tail);
         cout<<"NULL     Head"<<endl;
     }
+}
+void free_list(Node *&head,Node *&tail){
+    if(head==nullptr){
+        return;
+    }
+    tail->next = nullptr;
+    while(head!=nullptr){
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    tail = nullptr;
 }
 int main(){
     Node *head = nullptr;
@@ -90,11 +101,11 @@ int main(){
             //     reverse_linked(head,tail);
             //     break;
             // }
-            // case 6:{
-            //     free_list(head);
-            //     cout<<"exited!"<<endl;
-            //     break;
-            // }
+            case 6:{
+                free_list(head,tail);
+                cout<<"exited!"<<endl;
+                break;
+            }
         }
     }while(options!=6);
     return 0;
