@@ -32,6 +32,24 @@ void insert_end(Node *&head,Node *&tail,int size){
         }
     }
 }
+void insert_front(Node *&head,Node *&tail,int size){
+    for(int i=0;i<size;i++){
+        int value;
+        cout<<"enter the value : ";cin>>value;
+        if(head==nullptr){
+            initialize_first_list(head,tail,value);
+        }
+        else{
+            Node *newNode = new Node;
+            newNode->data = value;
+            newNode->next = head;
+            newNode->prev = tail;
+            head->prev = newNode;
+            tail->next = newNode;
+            head = newNode;
+        }
+    }
+}
 void display(Node *head,Node *tail){
     if(head==nullptr){
         cout<<"the list is empty!"<<endl;
@@ -104,12 +122,12 @@ int main(){
             //     delete_by_value(head,tail,target);
             //     break;
             // }
-            // case 4:{
-            //     int amount;
-            //     cout<<"enter the amount to add : ";cin>>amount;
-            //     insert_front(head,tail,amount);
-            //     break;
-            // }
+            case 4:{
+                int amount;
+                cout<<"enter the amount to add : ";cin>>amount;
+                insert_front(head,tail,amount);
+                break;
+            }
             // case 5:{
             //     reverse_linked(head,tail);
             //     break;
